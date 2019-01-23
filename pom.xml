@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+>
+	<modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.company</groupId>
+        <artifactId>portlets</artifactId>
+        <version>2.0.7-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+	<artifactId>react-portlet</artifactId>
+	<packaging>jar</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<junit.version>4.12</junit.version>
+		<node.download.url>http://nodejs.org/dist/</node.download.url>
+		<npm.download.url>http://registry.npmjs.org/npm/-/</npm.download.url>
+
+		<frontend.plugin.version>1.6</frontend.plugin.version>
+			<node.version>v8.12.0</node.version>
+		<npm.version>6.4.1</npm.version>
+	</properties>
+
+	<name>React Portlet</name>
+	<description>Portlet configurated to receive react</description>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+					<groupId>com.github.eirslett</groupId>
+					<artifactId>frontend-maven-plugin</artifactId>
+					<version>${frontend.plugin.version}</version>
+					<configuration>
+							<nodeVersion>${node.version}</nodeVersion>
+							<npmVersion>${npm.version}</npmVersion>
+							<nodeDownloadRoot>${node.download.url}</nodeDownloadRoot>
+							<npmDownloadRoot>${npm.download.url}</npmDownloadRoot>
+							<workingDirectory>${basedir}/src/main</workingDirectory>
+					</configuration>
+					<executions>
+							<execution>
+									<id>install node and npm</id>
+									<goals>
+											<goal>install-node-and-npm</goal>
+									</goals>
+									<phase>validate</phase>
+									<configuration>
+											<nodeVersion>${node.version}</nodeVersion>
+											<npmVersion>${npm.version}</npmVersion>
+									</configuration>
+							</execution>
+
+							<execution>
+									<id>npm install</id>
+									<goals>
+											<goal>npm</goal>
+									</goals>
+									<phase>validate</phase>
+									<configuration>
+											<arguments>install</arguments>
+									</configuration>
+							</execution>
+
+							<execution>
+									<id>npm build</id>
+									<goals>
+											<goal>npm</goal>
+									</goals>
+									<phase>validate</phase>
+									<configuration>
+											<arguments>run build</arguments>
+									</configuration>
+							</execution>
+					</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+				<groupId>com.liferay.portal</groupId>
+				<artifactId>com.liferay.portal.kernel</artifactId>
+				<scope>provided</scope>
+		</dependency>
+		<dependency>
+				<groupId>com.liferay.portal</groupId>
+				<artifactId>com.liferay.util.taglib</artifactId>
+				<scope>provided</scope>
+		</dependency>
+		<dependency>
+				<groupId>javax.portlet</groupId>
+				<artifactId>portlet-api</artifactId>
+				<scope>provided</scope>
+		</dependency>
+		<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<scope>provided</scope>
+		</dependency>
+		<dependency>
+				<groupId>jstl</groupId>
+				<artifactId>jstl</artifactId>
+				<scope>provided</scope>
+		</dependency>
+		<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>osgi.cmpn</artifactId>
+				<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+
+</project>
