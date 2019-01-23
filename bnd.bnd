@@ -1,5 +1,5 @@
 Bundle-Name: react-portlet
-Bundle-SymbolicName: com.axa.im.wcm.react.portlet
+Bundle-SymbolicName: com.react.portlet
 Bundle-Version: 1.0.0
 
 -jsp: *.jsp,*.jspf
